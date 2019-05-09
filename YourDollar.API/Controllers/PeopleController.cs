@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using YourDollar.API.DTOs.PersonDTOs;
+using YourDollar.API.Infrastructure.Entities;
+using YourDollar.API.Repositories;
 
 namespace YourDollar.API.Controllers
 {
@@ -12,34 +16,43 @@ namespace YourDollar.API.Controllers
     [ApiController]
     public class PeopleController : ControllerBase
     {
+        private readonly IPersonRepository _personRepository;
+
+        public PeopleController(IPersonRepository personRepository)
+        {
+            _personRepository = personRepository;
+        }
 
         // GET: api/people
         [HttpGet]
         public IActionResult GetPeople()
         {
-            var peopleFromDataStore = DummyDataStore.Current.People;
+            var peopleFromRepo = _personRepository.GetPeople();
 
-            return Ok(peopleFromDataStore);
+            var mappedPeople = Mapper.Map<IEnumerable<PersonDto>>(peopleFromRepo);
+
+            return Ok(mappedPeople);
         }
 
         // GET: api/people/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}", Name = "GetPersonById")]
         public IActionResult GetPersonById(Guid id)
         {
-            var returnPerson = DummyDataStore.Current.People
-                .FirstOrDefault(p => p.PersonId == id);
-
-            if (!PersonExists(id))
+            if (!_personRepository.PersonExists(id))
             {
                 return NotFound();
             }
 
-            return Ok(returnPerson);
+            var person = _personRepository.GetPersonById(id);
+
+            var mappedPerson = Mapper.Map<PersonDto>(person);
+
+            return Ok(mappedPerson);
         }
 
         // POST: api/people
         [HttpPost]
-        public IActionResult AddPerson([FromBody] PersonForAddDto person)
+        public IActionResult AddPerson([FromBody] PersonForAddOrUpdateDto person)
         {
             if (person == null)
             {
@@ -51,38 +64,77 @@ namespace YourDollar.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var newPersonId = Guid.NewGuid();
+            var mappedPerson = Mapper.Map<PersonEntity>(person);
 
-            DummyDataStore.Current.People.Add(new PersonDto()
+            _personRepository.AddPerson(mappedPerson);
+
+            if (!_personRepository.SaveChanges())
             {
-                PersonId = new Guid(),
-                FirstName = person.FirstName,
-                LastName = person.LastName,
-                Email = person.Email,
-                PhoneNumber = person.PhoneNumber
-            });
+                return StatusCode(500, "The server was unable to handle your request.");
+            }
 
-            return NoContent();
+            var createdPersonForReturn = Mapper.Map<PersonDto>(mappedPerson);
+
+            return CreatedAtRoute("GetPersonById", new
+                { id = createdPersonForReturn.PersonId }, createdPersonForReturn);
         }
 
-        // PUT: api/People/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PATCH: api/People/5
+        [HttpPatch("{id}")]
+        public IActionResult UpdatePerson(Guid id, [FromBody] JsonPatchDocument<PersonForAddOrUpdateDto> patchDocument)
         {
+            if (patchDocument == null)
+            {
+                return BadRequest();
+            }
+
+            var personToUpdate = _personRepository.GetPersonById(id);
+
+            if (personToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            var personToPatch = Mapper.Map<PersonForAddOrUpdateDto>(personToUpdate);
+
+            patchDocument.ApplyTo(personToPatch, ModelState);
+
+            TryValidateModel(personToPatch);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Mapper.Map(personToPatch, personToUpdate);
+
+            if (!_personRepository.SaveChanges())
+            {
+                return StatusCode(500, "The server was unable to handle your request.");
+            }
+
+            return CreatedAtRoute("GetPersonById", new
+                {id = personToUpdate.PersonId}, personToUpdate);
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult DeletePerson(Guid id)
         {
-        }
+            var personToDelete = _personRepository.GetPersonById(id);
+            if (personToDelete == null)
+            {
+                return BadRequest();
+            }
 
-        private bool PersonExists(Guid personId)
-        {
-            var resultPerson = DummyDataStore.Current.People
-                .FirstOrDefault(p => p.PersonId == personId);
+            _personRepository.RemovePerson(personToDelete);
 
-            return resultPerson != null;
+            if (!_personRepository.SaveChanges())
+            {
+                return StatusCode(500, "The server was unable to handle your request.");
+            }
+
+            return NoContent();
         }
     }
 }

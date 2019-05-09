@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YourDollar.API.DTOs.PersonDTOs
 {
-    public class PersonForAddDto
+    public class PersonForAddOrUpdateDto
     {
         [Required(ErrorMessage = "Please provide your first name.")]
         [MaxLength(20)]
