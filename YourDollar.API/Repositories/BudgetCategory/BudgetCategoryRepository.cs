@@ -8,7 +8,7 @@ using YourDollar.API.Infrastructure.Entities;
 
 namespace YourDollar.API.Repositories.BudgetCategory
 {
-    public class BudgetCategoryRepository
+    public class BudgetCategoryRepository : IBudgetCategoryRepository
     {
         private readonly YourDollarContext _context;
 

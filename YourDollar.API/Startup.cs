@@ -5,10 +5,12 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using YourDollar.API.DTOs.BudgetCatDTOs;
 using YourDollar.API.DTOs.PersonDTOs;
 using YourDollar.API.Infrastructure.Context;
 using YourDollar.API.Infrastructure.Entities;
 using YourDollar.API.Repositories;
+using YourDollar.API.Repositories.BudgetCategory;
 using YourDollar.API.Repositories.Person;
 
 namespace YourDollar.API
@@ -34,6 +36,7 @@ namespace YourDollar.API
             services.AddDbContext<YourDollarContext>(o => o.UseSqlServer(connectionString, b => b.MigrationsAssembly("YourDollar.API.Infrastructure")));
 
             services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IBudgetCategoryRepository, BudgetCategoryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +59,8 @@ namespace YourDollar.API
             {
                 cfg.CreateMap<PersonEntity, PersonDto>();
                 cfg.CreateMap<PersonForAddOrUpdateDto, PersonEntity>();
+                cfg.CreateMap<BudgetCategoryDto, BudgetCategoryEntity>();
+                cfg.CreateMap<BudgetCategoryForAddOrUpdateDto, BudgetCategoryEntity>();
                 //cfg.CreateMap<City, CityDto>();
                 //cfg.CreateMap<PointOfInterest, PointOfInterestDto>();
                 //cfg.CreateMap<PointOfInterestForCreationDto, PointOfInterest>();

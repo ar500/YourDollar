@@ -121,10 +121,15 @@ namespace YourDollar.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeletePerson(Guid id)
         {
+            if (!_personRepository.PersonExists(id))
+            {
+                return NotFound();
+            }
+
             var personToDelete = _personRepository.GetPersonById(id);
             if (personToDelete == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             _personRepository.RemovePerson(personToDelete);
