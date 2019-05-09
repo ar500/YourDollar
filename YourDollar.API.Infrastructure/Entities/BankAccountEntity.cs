@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
-using YourDollar.API.Core.Models;
+using YourDollar.API.Infrastructure.Enums;
 
 namespace YourDollar.API.Infrastructure.Entities
 {
@@ -23,6 +22,9 @@ namespace YourDollar.API.Infrastructure.Entities
         public decimal Balance { get; set; } = 0;
 
         [Required]
-        public ICollection<Person> AccountOwners { get; set; } = new List<Person>();
+        public ICollection<PersonEntity> AccountOwners { get; set; } = new List<PersonEntity>();
+
+        public ICollection<DepositEntity> Deposits { get; set; } = new List<DepositEntity>();
+
     }
 }

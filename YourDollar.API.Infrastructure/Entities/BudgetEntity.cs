@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace YourDollar.API.Infrastructure.Entities
 {
@@ -18,13 +17,11 @@ namespace YourDollar.API.Infrastructure.Entities
         [Required]
         public int MonthlySplit { get; set; } = 1;
 
+        
         [Required]
-        public ICollection<DepositEntity> Deposits { get; } = new List<DepositEntity>();
+        public ICollection<BudgetCategoryEntity> BudgetCategories { get; set; } = new List<BudgetCategoryEntity>();
 
         [Required]
-        public ICollection<PersonEntity> Owners { get; } = new List<PersonEntity>();
-
-        [Required]
-        public ICollection<BudgetCategoryEntity> BudgetCategories { get; } = new List<BudgetCategoryEntity>();
+        public ICollection<PersonEntity> Owners { get; set; } = new List<PersonEntity>();
     }
 }

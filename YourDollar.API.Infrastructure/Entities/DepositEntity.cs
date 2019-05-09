@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace YourDollar.API.Infrastructure.Entities
 {
@@ -17,13 +16,10 @@ namespace YourDollar.API.Infrastructure.Entities
         public string Description { get; set; }
 
         [Required]
-        public ICollection<DateTime> DepositDates { get; set; } = new List<DateTime>();
+        public DateTime DepositDate { get; set; } 
 
         [Required]
         public bool IsRecurring { get; set; } = false;
-
-        [Required]
-        public BankAccountEntity DepositAccount { get; set; }
 
         [Required]
         public decimal DepositAmount { get; set; }

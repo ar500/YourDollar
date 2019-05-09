@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace YourDollar.API.Infrastructure.Entities
 {
@@ -27,9 +26,5 @@ namespace YourDollar.API.Infrastructure.Entities
         [Required]
         [Phone]
         public string PhoneNumber { get; set; }
-
-        public ICollection<BudgetEntity> Budgets { get; set; } = new List<BudgetEntity>();
-
-        public ICollection<BankAccountEntity> BankAccounts { get; set; } = new List<BankAccountEntity>();
     }
 }
