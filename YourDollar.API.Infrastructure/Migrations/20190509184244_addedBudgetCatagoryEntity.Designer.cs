@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YourDollar.API.Infrastructure.Context;
 
 namespace YourDollar.API.Migrations
 {
     [DbContext(typeof(YourDollarContext))]
-    partial class YourDollarContextModelSnapshot : ModelSnapshot
+    [Migration("20190509184244_addedBudgetCatagoryEntity")]
+    partial class addedBudgetCatagoryEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

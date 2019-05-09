@@ -13,7 +13,5 @@ namespace YourDollar.API.DTOs.BudgetCatDTOs
         public string ShortName { get; set; }
 
         public string Description { get; set; }
-
-        public ICollection<ExpenseDto> Expenses { get; set; } = new List<ExpenseDto>();
     }
 }

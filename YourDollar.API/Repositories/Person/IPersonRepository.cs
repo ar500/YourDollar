@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using YourDollar.API.Infrastructure.Entities;
 
-namespace YourDollar.API.Repositories
+namespace YourDollar.API.Repositories.Person
 {
     public interface IPersonRepository
     {

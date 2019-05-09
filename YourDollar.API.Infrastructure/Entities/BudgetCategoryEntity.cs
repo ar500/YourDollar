@@ -18,7 +18,5 @@ namespace YourDollar.API.Infrastructure.Entities
         [Required]
         [MaxLength(200)]
         public string Description { get; set; }
-
-        public ICollection<ExpenseEntity> Expenses { get; set; } = new List<ExpenseEntity>();
     }
 }

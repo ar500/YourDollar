@@ -9,6 +9,7 @@ using YourDollar.API.DTOs.PersonDTOs;
 using YourDollar.API.Infrastructure.Context;
 using YourDollar.API.Infrastructure.Entities;
 using YourDollar.API.Repositories;
+using YourDollar.API.Repositories.Person;
 
 namespace YourDollar.API
 {
@@ -49,6 +50,7 @@ namespace YourDollar.API
             }
             
             context.EnsurePeopleSeedDataForContext();
+            context.EnsureBudgetCategorySeedDataForContext();
 
             AutoMapper.Mapper.Initialize(cfg =>
             {

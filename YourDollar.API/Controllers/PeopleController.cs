@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using YourDollar.API.DTOs.PersonDTOs;
 using YourDollar.API.Infrastructure.Entities;
-using YourDollar.API.Repositories;
+using YourDollar.API.Repositories.Person;
 
 namespace YourDollar.API.Controllers
 {

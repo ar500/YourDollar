@@ -108,98 +108,18 @@ namespace YourDollar.API
                 CategoryId = Guid.NewGuid(),
                 ShortName = "Transportation",
                 Description = "Vehicle Upkeep Costs, Public transportation costs, Car Loans, etc...",
-                Expenses = new List<ExpenseDto>()
-                {
-                    new ExpenseDto()
-                    {
-                        ExpenseId = Guid.NewGuid(),
-                        PayoutDate = DateTime.Parse("05/20/2019"),
-                        IsRecurring = true,
-                        ShortName = "Truck Payment",
-                        Amount = 78,
-                        BankAccount = BankAccounts.FirstOrDefault(p => Enumerable
-                            .Select<PersonDto, bool>(p.AccountOwners, o => o.PersonId == Person1Id && p.BankAccountId == Account1Id)
-                            .FirstOrDefault())
-                    },
-                    new ExpenseDto()
-                    {
-                        ExpenseId = Guid.NewGuid(),
-                        PayoutDate = DateTime.Parse("06/01/2019"),
-                        ShortName = "Fuel",
-                        IsRecurring = true,
-                        Amount = 50,
-                        BankAccount = BankAccounts.FirstOrDefault(p => Enumerable
-                            .Select<PersonDto, bool>(p.AccountOwners, o => o.PersonId == Person1Id && p.BankAccountId == Account1Id)
-                            .FirstOrDefault())
-                    },
-                    new ExpenseDto()
-                    {
-                        ExpenseId = Guid.NewGuid(),
-                        PayoutDate = DateTime.Parse("06/05/2019"),
-                        ShortName = "Big hawkin' Muddin' tyres",
-                        IsRecurring = false,
-                        Amount = 150000,
-                        BankAccount = BankAccounts.FirstOrDefault(p => Enumerable
-                            .Select<PersonDto, bool>(p.AccountOwners, o => o.PersonId == Person1Id && p.BankAccountId == Account1Id)
-                            .FirstOrDefault())
-                    }
-                }
             });
             Budgets[0].BudgetCategories.Add(new BudgetCategoryDto()
             {
                 CategoryId = Guid.NewGuid(),
                 ShortName = "Food",
-                Description = "Groceries, eating out, school lunches, etc...",
-                Expenses = new List<ExpenseDto>()
-                {
-                    new ExpenseDto()
-                    {
-                        ExpenseId = Guid.NewGuid(),
-                        PayoutDate = DateTime.Parse("05/20/2019"),
-                        IsRecurring = true,
-                        ShortName = "Groceries",
-                        Amount = 250,
-                        BankAccount = BankAccounts.FirstOrDefault(p => Enumerable
-                            .Select<PersonDto, bool>(p.AccountOwners, o => o.PersonId == Person1Id && p.BankAccountId == Account1Id)
-                            .FirstOrDefault())
-                    },
-                    new ExpenseDto()
-                    {
-                        ExpenseId = Guid.NewGuid(),
-                        PayoutDate = DateTime.Parse("05/20/2019"),
-                        ShortName = "Eating out",
-                        IsRecurring = false,
-                        Amount = 20,
-                        BankAccount = BankAccounts.FirstOrDefault(p => Enumerable
-                            .Select<PersonDto, bool>(p.AccountOwners, o => o.PersonId == Person1Id && p.BankAccountId == Account1Id)
-                            .FirstOrDefault())
-                    },
-                    new ExpenseDto()
-                    {
-                        ExpenseId = Guid.NewGuid(),
-                        PayoutDate = DateTime.Parse("05/17/2019"),
-                        ShortName = "Divorce Day travel meal",
-                        IsRecurring = false,
-                        Amount = 0.25m,
-                        BankAccount = BankAccounts.FirstOrDefault(p => p.BankAccountId == Account3Id)
-                    }
-                }
+                Description = "Groceries, eating out, school lunches, etc..."
             });
             Budgets[0].BudgetCategories.Add(new BudgetCategoryDto()
             {
                 CategoryId = Guid.NewGuid(),
                 ShortName = "Savings",
-                Description = "Savings expenses go here",
-                Expenses = new List<ExpenseDto>()
-                {
-                    new ExpenseDto()
-                    {
-                        ExpenseId = Guid.NewGuid(),
-                        ShortName = "College Savings",
-                        PayoutDate = DateTime.Parse("05/15/2019"),
-                        BankAccount = BankAccounts.FirstOrDefault(p => p.BankAccountId == Account2Id)
-                    }
-                }
+                Description = "Savings expenses go here"
             });
         }
     }

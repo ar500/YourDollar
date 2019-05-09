@@ -17,7 +17,6 @@ namespace YourDollar.API.Infrastructure.Entities
         [Required]
         public int MonthlySplit { get; set; } = 1;
 
-        
         [Required]
         public ICollection<BudgetCategoryEntity> BudgetCategories { get; set; } = new List<BudgetCategoryEntity>();
 

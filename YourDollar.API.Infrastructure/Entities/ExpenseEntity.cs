@@ -23,6 +23,9 @@ namespace YourDollar.API.Infrastructure.Entities
         [Required]
         public BankAccountEntity BankAccount { get; set; }
 
+        [Required]
+        public BudgetCategoryEntity BudgetCategory { get; set; }
+
         public bool IsRecurring { get; set; } = false;
     }
 }

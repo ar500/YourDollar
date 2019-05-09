@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using YourDollar.API.Infrastructure.Context;
 using YourDollar.API.Infrastructure.Entities;
 
-namespace YourDollar.API.Repositories
+namespace YourDollar.API.Repositories.Person
 {
     public class PersonRepository : IPersonRepository
     {
