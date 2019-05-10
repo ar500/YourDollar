@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -9,7 +10,6 @@ using YourDollar.API.DTOs.BudgetCatDTOs;
 using YourDollar.API.DTOs.PersonDTOs;
 using YourDollar.API.Infrastructure.Context;
 using YourDollar.API.Infrastructure.Entities;
-using YourDollar.API.Repositories;
 using YourDollar.API.Repositories.BudgetCategory;
 using YourDollar.API.Repositories.Person;
 
@@ -37,6 +37,7 @@ namespace YourDollar.API
 
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IBudgetCategoryRepository, BudgetCategoryRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,8 +69,10 @@ namespace YourDollar.API
                 //cfg.CreateMap<PointOfInterest, PointOfInterestForUpdateDto>();
             });
 
+
             app.UseStatusCodePages();
             app.UseHttpsRedirection();
+
             app.UseMvc();
         }
     }
