@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore.Storage;
 using YourDollar.API.Infrastructure.Entities;
 
 namespace YourDollar.API.Infrastructure.Context
@@ -122,6 +122,62 @@ namespace YourDollar.API.Infrastructure.Context
 
             context.SaveChanges();
             // TODO: Add additional budgetCategories to seed data after testing the catagoryRepo.
+        }
+
+        public static void EnsureExpenseSeedDataForContext(this YourDollarContext context)
+        {
+            if (EnumerableExtensions.Any(context.Expenses))
+            {
+                return;
+            }
+
+            var expenseList = new List<ExpenseEntity>()
+            {
+                new ExpenseEntity()
+                {
+                    ShortName = "Light Bill",
+                    BudgetCategory = context.BudgetCategories.FirstOrDefault(c => c.ShortName == "Utilities"),
+                    Amount = 150m,
+                    CompanyAccountNumber = "123-556-33322AB",
+                    CompanyName = "XYZLights",
+                    DueDate = DateTime.Parse("06/15/2019"),
+                    PayoutDate = DateTime.Parse("05/16/2019"),
+                    IsRecurring = true
+                },
+                new ExpenseEntity()
+                {
+                    ShortName = "Water Bill",
+                    BudgetCategory = context.BudgetCategories.FirstOrDefault(c => c.ShortName == "Utilities"),
+                    Amount = 25m,
+                    CompanyAccountNumber = "ABC-ID",
+                    CompanyName = "CrystalClearH2O",
+                    DueDate = DateTime.Parse("05/25/2019"),
+                    PayoutDate = DateTime.Parse("06/1/2019"),
+                    IsRecurring = true
+                },
+                new ExpenseEntity()
+                {
+                    ShortName = "Groceries",
+                    BudgetCategory = context.BudgetCategories.FirstOrDefault(c => c.ShortName == "Food"),
+                    Amount = 250m,
+                    PayoutDate = DateTime.Parse("05/15/2019"),
+                    IsRecurring = true
+                },
+                new ExpenseEntity()
+                {
+                    ShortName = "Car Loan",
+                    BudgetCategory = context.BudgetCategories.FirstOrDefault(c => c.ShortName == "Transportation"),
+                    Amount = 380m,
+                    PayoutDate = DateTime.Parse("05/15/2019"),
+                    DueDate = DateTime.Parse("06/01/2019"),
+                    CompanyName = "WeToteDaNote",
+                    CompanyAccountNumber = "11111666-badjuju",
+                    IsRecurring = true
+                }
+            };
+
+            context.Expenses.AddRange(expenseList);
+            context.SaveChanges();
         }
     }
 }

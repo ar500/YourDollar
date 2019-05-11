@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using YourDollar.API.DTOs.BudgetCatDTOs;
-using YourDollar.API.DTOs.PersonDTOs;
 using YourDollar.API.Infrastructure.Entities;
 using YourDollar.API.Repositories.BudgetCategory;
 

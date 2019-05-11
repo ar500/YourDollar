@@ -5,22 +5,30 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace YourDollar.API.Infrastructure.Entities
 {
+    /// <summary>
+    /// Models a budges
+    /// </summary>
     public class BudgetEntity
     {
+        /// <summary>
+        /// The Primary key for the entity
+        /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid BudgetId { get; set; }
 
         [Required]
-        public DateTime TargetDate { get; set; }
+        public DateTime CycleStartDate { get; set; }
 
         [Required]
-        public int MonthlySplit { get; set; } = 1;
+        public DateTime CycleEndDate { get; set; }
 
         [Required]
-        public ICollection<BudgetCategoryEntity> BudgetCategories { get; set; } = new List<BudgetCategoryEntity>();
+        public decimal Funds { get; set; } = 0;
 
-        [Required]
-        public ICollection<PersonEntity> Owners { get; set; } = new List<PersonEntity>();
+        [MinLength(1, ErrorMessage = "You must provide at least 1 budget member.")]
+        public ICollection<PersonEntity> BudgetMembers { get; set; }
+
+        public ICollection<ExpenseEntity> Expenses { get; set; } = new List<ExpenseEntity>();
     }
 }

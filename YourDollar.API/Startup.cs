@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -7,10 +6,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using YourDollar.API.DTOs.BudgetCatDTOs;
+using YourDollar.API.DTOs.ExpenseDTOs;
 using YourDollar.API.DTOs.PersonDTOs;
 using YourDollar.API.Infrastructure.Context;
 using YourDollar.API.Infrastructure.Entities;
 using YourDollar.API.Repositories.BudgetCategory;
+using YourDollar.API.Repositories.Expense;
 using YourDollar.API.Repositories.Person;
 
 namespace YourDollar.API
@@ -37,6 +38,7 @@ namespace YourDollar.API
 
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IBudgetCategoryRepository, BudgetCategoryRepository>();
+            services.AddScoped<IExpenseRepository, ExpenseRepository>();
 
         }
 
@@ -55,6 +57,7 @@ namespace YourDollar.API
             
             context.EnsurePeopleSeedDataForContext();
             context.EnsureBudgetCategorySeedDataForContext();
+            context.EnsureExpenseSeedDataForContext();
 
             AutoMapper.Mapper.Initialize(cfg =>
             {
@@ -62,6 +65,9 @@ namespace YourDollar.API
                 cfg.CreateMap<PersonForAddOrUpdateDto, PersonEntity>();
                 cfg.CreateMap<BudgetCategoryDto, BudgetCategoryEntity>();
                 cfg.CreateMap<BudgetCategoryForAddOrUpdateDto, BudgetCategoryEntity>();
+                cfg.CreateMap<ExpenseEntity, ExpenseDto>();
+                cfg.CreateMap<ExpenseForUpdateDto, ExpenseEntity>();
+                cfg.CreateMap<ExpenseForAddDto, ExpenseEntity>();
                 //cfg.CreateMap<City, CityDto>();
                 //cfg.CreateMap<PointOfInterest, PointOfInterestDto>();
                 //cfg.CreateMap<PointOfInterestForCreationDto, PointOfInterest>();

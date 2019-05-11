@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using YourDollar.API.DTOs.ExpenseDTOs;
 
 namespace YourDollar.API.DTOs.BudgetCatDTOs
 {

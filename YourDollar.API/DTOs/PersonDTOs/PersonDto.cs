@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using YourDollar.API.DTOs.BankAccountDTOs;
-using YourDollar.API.DTOs.BudgetDTOs;
 
 namespace YourDollar.API.DTOs.PersonDTOs
 {
